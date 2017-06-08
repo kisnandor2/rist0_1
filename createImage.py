@@ -10,8 +10,11 @@ def printToImage(data):
 	plt.savefig('image.png')
 
 def formatDataIntoMatrix(data):
-	data = np.fromstring(data, sep=",").tolist()
-	data.pop(0)
+	try:
+		data = np.fromstring(data, sep=",").tolist()
+		data.pop(0)
+	except Exception as e:
+		data = np.asfarray(data) 
 	return np.array(data).reshape(42, 10)*255
 
 def main():
