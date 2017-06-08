@@ -31,10 +31,10 @@ def printHistograms(data = None):
 	ret = getNitAndRpaForAllImages(data)
 	for label in ret:
 		plt.hist(ret[label]["nit"], 100, normed=1, facecolor='green', alpha=0.75)
-		plt.savefig('histograms/histNitLabel{0}.png'.format(label))
+		plt.savefig('histNitLabel{0}.png'.format(label))
 		plt.close()
 		plt.hist(ret[label]["rpa"], 100, normed=1, facecolor='green', alpha=0.75)
-		plt.savefig('histograms/histRpaLabel{0}.png'.format(label))
+		plt.savefig('histRpaLabel{0}.png'.format(label))
 		plt.close()
 
 def addAvg(avg, item):
@@ -84,7 +84,8 @@ def getAvgAndStdDev(data = None, feature = None):
 	return ret
 
 def main(data = None):
-	print(getAvgAndStdDev(data, "ftp"))	
+	# print(getAvgAndStdDev(data, "ftp"))	
+	printHistograms()
 
 if __name__ == "__main__":
 	main(data)
