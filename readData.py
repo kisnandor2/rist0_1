@@ -3,8 +3,9 @@ import numpy as np
 
 from linecache import getline
 
-def loadData(fileName, lineIndex = None):
+def loadData(fileName = "data.csv", lineIndex = None):
 	# Reads the data from the csv
+	print("LoadingData...")
 	if lineIndex is not None:
 		if lineIndex < 1:
 			raise Exception("Invalid argument lineIndex")
@@ -15,10 +16,12 @@ def loadData(fileName, lineIndex = None):
 														 quotechar = '"')
 			data = [data for data in data_iter]
 	data_array = np.asarray(data)
+	print("DataLoading DONE")
 	return data_array
 
 def splitDataIntoLabelsAndImages(data):
 	# Formats the data into a dictionary, like: {label1: [imagesForLabel1], label2: etc.}
+	print("SplittingDataForLaterUse")
 	for i in range(1, len(data)): # Convert strings to float
 		data[i] = np.asfarray(data[i])
 	ret = {}
@@ -29,6 +32,7 @@ def splitDataIntoLabelsAndImages(data):
 		if not label in ret:
 			ret[label] = []
 		ret[label].append(row)
+	print("Data splitting DONE")
 	return ret
 
 def printLabelNumberOfSamples(data):
@@ -44,3 +48,11 @@ def printLabelNumberOfSamples(data):
 	for label in data:
 		print("{0}, {1}".format(int(label), len(data[label])))
 		# print("Label, numberOfSamples: {0}, {1}".format(int(label), len(data[label])))
+
+def main():
+	data = loadData()
+	data = splitDataIntoLabelsAndImages(data)
+	printLabelNumberOfSamples(data)
+
+if __name__ == "__main__":
+	main()

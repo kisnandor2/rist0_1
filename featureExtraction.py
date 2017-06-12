@@ -47,8 +47,14 @@ def rpa(ftdList, ftpList):
 	return sum(list(map(operator.sub, ftpList, ftdList)))
 
 def main():
-	arg = 5
-	data = loadData("data.csv", arg)
+	arg = None
+	try:
+		arg = int(argv[1])
+		data = loadData("data.csv", arg)
+	except Exception as e:
+		print(e)
+		print('Usage: {0} indexOfImageRow'.format(argv[0]))
+		return
 	imageMatrix = formatDataIntoMatrix(data)
 	_ftd = ftd(imageMatrix)
 	_ftp = ftp(imageMatrix)

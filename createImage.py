@@ -32,8 +32,5 @@ def main():
 	lastRow = data[len(data)-1];
 	print("Order: {0}".format(Order.checkOrder(lastRow)))
 	
-
-
 if __name__ == "__main__":
 	main()
-	
