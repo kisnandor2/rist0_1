@@ -19,11 +19,6 @@ def getNitAndRpaForAllImages(data):
 			_rpa = rpa(_ftd, _ftp)
 			ret[label]["nit"].append(_nit)
 			ret[label]["rpa"].append(_rpa)
-			m = len(imageMatrix)-1
-			# Set ftd and ftp order for all to increasing
-			if Order.checkDecreasing(imageMatrix[m]):
-				_ftd.reverse()
-				_ftp.reverse()
 			ret[label]["ftd"].append(_ftd)
 			ret[label]["ftp"].append(_ftp)
 	print("NIT/RPA DONE")
@@ -73,11 +68,14 @@ def initStdDev(feature):
 	return initAvg(feature)
 
 def getAvgAndStdDev(data = None, feature = None, nit_rpa = None):
+	# Calculate Avg and StdDev, it's not magic, just dictionary used
+	# Operators changed with functions that can handle arrays as well
 	if data is None and nit_rpa is None:
 		data = loadData("data.csv")
 		data = splitDataIntoLabelsAndImages(data)
 	if nit_rpa is None:
 		nit_rpa = getNitAndRpaForAllImages(data)
+		
 	ret = {}
 	for label in nit_rpa:
 		sortLabel = label
@@ -98,10 +96,15 @@ def getAvgAndStdDev(data = None, feature = None, nit_rpa = None):
 	return ret
 
 def printIt(data):
+	# Print the Avg/StdDev a little bit formatted
 	for key in data:
 		print("Label: {0}".format(key))
 		print(data[key]['avg'])
-		print(data[key]['stdDev'])
+		if isinstance(data[key]['avg'], list):
+			data[key]['stdDev'] = [round(x, 3) for x in data[key]['stdDev']]
+			print(data[key]['stdDev'])
+		else:
+			print(round(data[key]['stdDev'], 3))
 	print('\n')
 
 def printAvgs(data = None):
@@ -109,16 +112,16 @@ def printAvgs(data = None):
 	data = splitDataIntoLabelsAndImages(data)
 	nit_rpa = getNitAndRpaForAllImages(data)
 	_nit = getAvgAndStdDev(data, "nit", nit_rpa = nit_rpa)
-	print("nit avg")
+	print("nit avg/stdDev")
 	printIt(_nit)
 	_rpa = getAvgAndStdDev(data, "rpa", nit_rpa = nit_rpa)
-	print("rpa avg")
+	print("rpa avg/stdDev")
 	printIt(_rpa)
 	_ftd = getAvgAndStdDev(data, "ftd", nit_rpa = nit_rpa)
-	print("ftd avg")
+	print("ftd avg/stdDev")
 	printIt(_ftd)
 	_ftp = getAvgAndStdDev(data, "ftp", nit_rpa = nit_rpa)
-	print("ftp avg")
+	print("ftp avg/stdDev")
 	printIt(_ftp)
 	return data # Just to save the reading time
 

@@ -8,19 +8,13 @@ def ftd(imageMatrix):
 	m = len(imageMatrix)
 	ret = [0]*n
 	for i in range(0, n):
-		moved = False
 		for j in range(1, m):
 			if imageMatrix[j-1][i] != imageMatrix[j][i]:
 				ret[i] = j
-				moved = True
-			if moved:
 				break
-	# print(imageMatrix[0])
-	# print(ret)
-	ret = [x for (y,x) in sorted(zip(imageMatrix[0],ret))] #Sort ret by First row of matrix
-	# print(sorted(imageMatrix[0]))
-	if Order.checkDecreasing(imageMatrix[m-1]):
-		ret.reverse();
+	ret = [x for (y,x) in sorted(zip(imageMatrix[0],ret))] #Sort ret by First row of imageMatrix
+	if Order.checkDecreasing(imageMatrix[m-1]): 
+		ret.reverse(); #It has to be in increasing order
 	return ret
 
 def ftp(imageMatrix):
@@ -29,14 +23,12 @@ def ftp(imageMatrix):
 	m = len(imageMatrix)-1
 	ret = [-1]*n
 	for i in range(0, n):
-		final = False
 		for j in range(m-1, -1, -1):
 			if imageMatrix[m][i] != imageMatrix[j][i]:
 				ret[i] = j+1
-				final = True
-			if final:
 				break
-	# print(imageMatrix[m])
+	if Order.checkDecreasing(imageMatrix[m]): # If it's in decreasing order make it increasing
+			ret.reverse()
 	return ret;
 
 def nit(ftpList):
@@ -56,6 +48,7 @@ def main():
 		print('Usage: {0} indexOfImageRow'.format(argv[0]))
 		return
 	imageMatrix = formatDataIntoMatrix(data)
+	print("ftd, ftp, nit, rpa:")
 	_ftd = ftd(imageMatrix)
 	_ftp = ftp(imageMatrix)
 	_nit = nit(_ftp)

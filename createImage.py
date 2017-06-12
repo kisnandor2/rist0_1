@@ -8,6 +8,7 @@ from sys import argv, exc_info
 def printToImage(data):
 	plt.imshow(data, cmap='gray', interpolation='nearest', vmin=0, vmax=255)
 	plt.savefig('image.png')
+	print('Image rendering done');
 
 def formatDataIntoMatrix(data):
 	try:
@@ -24,7 +25,6 @@ def main():
 		data = loadData("data.csv", arg)
 		data = formatDataIntoMatrix(data)
 		printToImage(data)
-		print('Image rendering done');
 	except Exception as e:
 		print(e)
 		print('Usage: {0} indexOfImageRow'.format(argv[0]))
