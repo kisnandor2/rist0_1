@@ -9,3 +9,5 @@ print("\nhistograms.py - 3.4 - creating nit and rpa histograms, printed. Bonus: 
 print("\ndataSplitting.py - 3.5 - splitting the data into Training and Validation subset(no main function)")
 print("\npredict.py - 3.6, 3.7 - scikit-learn used to train and fit the data, classification report and confusion matrix printed")
 print("\n")
+
+print("\nDependencies: numpy, sklearn, matplotlib")
